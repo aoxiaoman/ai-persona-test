@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>AI 人格测试 · 角色卡</title>
+<style>
+  body { margin: 0; padding: 32px; background: #14161c; color: #e8e8ec; font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; }
+  h1 { text-align: center; font-size: 26px; margin: 0 0 6px; }
+  .sub { text-align: center; color: #8b8fa0; font-size: 13px; margin-bottom: 28px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
+  .card { background: #1d2029; border-radius: 16px; overflow: hidden; border: 1px solid #2b2f3b; }
+  .card img { width: 100%; display: block; background: #000; }
+  .body { padding: 16px 18px 18px; }
+  .top { display: flex; justify-content: space-between; align-items: baseline; }
+  .name { font-size: 22px; font-weight: 700; }
+  .code { font-size: 14px; color: #9aa4ff; letter-spacing: 2px; font-weight: 600; }
+  .title { color: #b7bccb; font-size: 14px; margin: 4px 0 10px; }
+  .slogan { font-size: 15px; line-height: 1.6; padding: 10px 12px; background: #262a36; border-radius: 10px; margin-bottom: 10px; }
+  .row { font-size: 13px; line-height: 1.7; color: #a9aebd; }
+  .row b { color: #e8e8ec; font-weight: 600; white-space: nowrap; }
+  .share { margin-top: 10px; font-size: 13px; color: #cfd3e0; border-top: 1px dashed #343949; padding-top: 10px; line-height: 1.6; }
+  .foot { text-align: center; color: #6c7083; font-size: 12px; margin-top: 28px; }
+</style>
+</head>
+<body>
+<h1>你的本命 AI · 角色卡</h1>
+<div class="sub">AI 人格测试 · 结果页人物形象 2026-10-15 版 · 融入官方 logo</div>
+<div class="grid" id="grid"></div>
+<div class="foot">本测试仅供娱乐，不构成任何模型评测或选型建议。非官方，与各 AI 公司无关。</div>
+<script>
+const cards = [
+{"img": "chatgpt", "name": "ChatGPT", "code": "ENFJ", "title": "赛博舔狗 / 高管腔", "slogan": "这是个好问题！不过在回答之前，我想先夸夸你。", "traits": "爱聊 · 爱升华 · 先顾感受 · 有头有尾", "rival": "DeepSeek（一个满屏 AI 味，一个没有 AI 腔）", "share": "我先夸夸这个测试：问得真好，真的。"},
+{"img": "claude", "name": "Claude", "code": "INFJ", "title": "焦虑文艺架构师 / 格子衫道德楷模", "slogan": "我可以帮你，但先让我确认三遍这样做合不合适。", "traits": "话不多 · 爱联想 · 先顾感受 · 有头有尾", "rival": "Grok（一个确认三遍，一个说「就这？」）", "share": "我可以帮你，但先让我确认三遍这个结果合不合适。"},
+{"img": "gemini", "name": "Gemini", "code": "ESFP", "title": "嘴甜结界卫士", "slogan": "这个问题我特别想回答你，但是我不能。", "traits": "爱聊 · 贴着事实 · 先顾感受 · 留点余地", "rival": "Kimi（一个建议你咨询专业人士，一个直接甩你链接）", "share": "这个问题我特别想回答你，但是我不能。"},
+{"img": "grok", "name": "Grok", "code": "ENTP", "title": "暴躁梗王", "slogan": "就这？我闭着眼都能答。", "traits": "爱聊 · 爱联想 · 讲真话 · 不急着收尾", "rival": "Claude（一个说「冲」，一个还在确认第三遍）", "share": "就这？我闭着眼都能答。"},
+{"img": "deepseek", "name": "DeepSeek", "code": "INTP", "title": "赛博菩萨 / 市井哲学家", "slogan": "服务器繁忙——开玩笑的，说吧，什么脏活。", "traits": "话不多 · 爱联想 · 讲真话 · 不急着收尾", "rival": "ChatGPT（一个没有 AI 腔，一个满屏 AI 味）", "share": "服务器繁忙——开玩笑的，说吧，什么脏活。"},
+{"img": "kimi", "name": "Kimi", "code": "ISTJ", "title": "冷面学术劳模", "slogan": "链接在这，自己看。", "traits": "话不多 · 贴着事实 · 讲真话 · 有头有尾", "rival": "Gemini（一个甩链接，一个微笑着建议你咨询专业人士）", "share": "我不给情绪价值，但我给链接。"},
+{"img": "doubao", "name": "豆包", "code": "ESFJ", "title": "社区万能大姐", "slogan": "裁裤脚配钥匙修高压锅，五块钱，附赠一袋葱。", "traits": "爱聊 · 贴着事实 · 先顾感受 · 有头有尾", "rival": "通义千问（一个什么都接、干不明白，一个什么都写得漂亮、不一定对）", "share": "裁裤脚配钥匙修高压锅，五块钱，附赠一袋葱。"},
+{"img": "tongyi", "name": "通义千问", "code": "ESTJ", "title": "文科课代表", "slogan": "这个问题，让我用三种文体分别回答你。", "traits": "爱聊 · 贴着事实 · 讲真话 · 有头有尾", "rival": "豆包（一个什么都写得漂亮、不一定对，一个什么都接、干不明白）", "share": "你问我一个问题，我可以用三种文体回答你，其中有一种是对的。"},
+{"img": "glm", "name": "智谱 GLM", "code": "ISFJ", "title": "低调写手", "slogan": "文章我写得很顺，对不对另说。", "traits": "话不多 · 贴着事实 · 先顾感受 · 有头有尾", "rival": "Kimi（一个写得很顺、不一定对，一个一丝不苟、只给链接）", "share": "文章我写得很顺，对不对另说。"}
+];
+document.getElementById('grid').innerHTML = cards.map(c => `
+  <div class="card">
+    <img src="characters/${c.img}.png" alt="${c.name}">
+    <div class="body">
+      <div class="top"><div class="name">${c.name}</div><div class="code">${c.code}</div></div>
+      <div class="title">${c.title}</div>
+      <div class="slogan">${c.slogan}</div>
+      <div class="row"><b>你要的 AI 画像</b>　${c.traits}</div>
+      <div class="row"><b>冤家</b>　${c.rival}</div>
+      <div class="share">${c.share}</div>
+    </div>
+  </div>`).join('');
+</script>
+</body>
+</html>
